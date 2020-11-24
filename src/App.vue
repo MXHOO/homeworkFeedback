@@ -1,17 +1,20 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Layout class="system-layout">
+  </Layout>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Layout from './Layouts/Layout' 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Layout
   }
 }
 </script>
 
 <style>
+.system-layout {
+  height: 100%;
+}
 </style>
