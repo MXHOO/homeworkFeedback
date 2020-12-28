@@ -16,8 +16,14 @@
 <script>
 export default {
   name: 'Content',
+  data() {
+    return {
+      arr: [this.src],
+      src: 1
+    }
+  },
   methods: {
-  callback(key) {
+    callback(key) {
       console.log(key);
       console.log('count', this.$store.state.count, this)
     }
