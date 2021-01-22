@@ -3,7 +3,9 @@ import axios from 'axios'
 
 
 const service = axios.create({
-  baseURL: ''
+  timeout: 20000,
+  withCredentials: true,
+  baseURL: '/homework_feedback'
 })
 
 service.interceptors.request.use(config => {
@@ -11,7 +13,22 @@ service.interceptors.request.use(config => {
 })
 
 service.interceptors.response.use(response => {
-  console.log(response)
+  const { data } = response
+  switch(data.code) {
+    case 0: 
+      Promise.resolve(data.data)
+      break
+    case 1001:
+      window.location.href = 'login.html'
+      break
+    case 1002:
+      console.log('没有权限访问')
+      break
+    default:
+      console.log('其他')
+  }
+}, error => {
+  console.log(error)
 })
 
 export default service

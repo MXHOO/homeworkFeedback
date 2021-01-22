@@ -1,16 +1,14 @@
-# 毕设：作业反馈系统
-
-## Project setup
+## 安装依赖
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 启动项目
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### 打包项目
 ```
 yarn build
 ```
@@ -24,6 +22,10 @@ yarn lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 作业反馈系统
+> 角色： 老师，学生，管理员
+- [ ] 创建作业
+- [ ] 
 > 基于vue3.0 ant-design-vue 开发
-> node搭建后台
+> Java搭建后台
+> 使用echarts实现页面可视化
 > mysql 搭建数据库

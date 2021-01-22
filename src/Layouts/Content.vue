@@ -2,7 +2,7 @@
   <div>
     <a-tabs @change="callback">
       <a-tab-pane key="1" tab="Tab 1">
-        Content of Tab Pane 1
+        <div id="editor"></div>
       </a-tab-pane>
       <a-tab-pane key="2" tab="Tab 2" force-render>
         Content of Tab Pane 2
@@ -14,6 +14,7 @@
   </div>
 </template>
 <script>
+import E from 'wangeditor'
 export default {
   name: 'Content',
   data() {
@@ -23,10 +24,13 @@ export default {
     }
   },
   methods: {
-    callback(key) {
-      console.log(key);
+    callback() {
       console.log('count', this.$store.state.count, this)
     }
   },
+  mounted() {
+    const editor = new E(document.getElementById('editor'))
+    editor.create()
+  }
 }
 </script>
