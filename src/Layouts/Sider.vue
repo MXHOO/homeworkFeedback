@@ -4,15 +4,19 @@
      <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
         <a-menu-item key="1">
           <user-outlined />
-          <span>模块一</span>
+          <span>创建作业</span>
         </a-menu-item>
         <a-menu-item key="2">
           <video-camera-outlined />
-          <span>模块二</span>
+          <span>查看作业</span>
         </a-menu-item>
         <a-menu-item key="3">
           <upload-outlined />
-          <span>模块三</span>
+          <span>数据统计</span>
+        </a-menu-item>
+         <a-menu-item key="4">
+          <upload-outlined />
+          <span>个人信息</span>
         </a-menu-item>
       </a-menu>
   </div>

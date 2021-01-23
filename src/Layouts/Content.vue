@@ -19,7 +19,6 @@ export default {
   name: 'Content',
   data() {
     return {
-      arr: [this.src],
       src: 1
     }
   },
