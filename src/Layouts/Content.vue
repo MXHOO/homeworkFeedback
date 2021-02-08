@@ -1,35 +1,32 @@
 <template>
-  <div>
-    <a-tabs @change="callback">
-      <a-tab-pane key="1" tab="Tab 1">
-        <div id="editor"></div>
-      </a-tab-pane>
-      <a-tab-pane key="2" tab="Tab 2" force-render>
-        Content of Tab Pane 2
-      </a-tab-pane>
-      <a-tab-pane key="3" tab="Tab 3">
-        Content of Tab Pane 3
-      </a-tab-pane>
-    </a-tabs>
-  </div>
+  <EditContent ref="content"></EditContent>
 </template>
 <script>
-import E from 'wangeditor'
+import { provide, reactive, readonly, ref } from 'vue'
+import EditContent from '../components/createWork/index.vue'
 export default {
   name: 'Content',
-  data() {
+  components: {
+    EditContent
+  },
+  data () {
     return {
       src: 1
     }
   },
-  methods: {
-    callback() {
-      console.log('count', this.$store.state.count, this)
-    }
+  setup () {
+    const location = ref('-------')
+    const geolocation = reactive({
+      longitude: 90,
+      latitude: 135
+    })
+
+    provide('location', readonly(location))
+    provide('geolocation', geolocation)
   },
-  mounted() {
-    const editor = new E(document.getElementById('editor'))
-    editor.create()
+  methods: {
+  },
+  mounted () {
   }
 }
 </script>

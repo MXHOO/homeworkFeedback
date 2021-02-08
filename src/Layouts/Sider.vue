@@ -1,42 +1,35 @@
 <template>
   <div>
-    <div class="logo">测试一下</div>
-     <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
-        <a-menu-item key="1">
-          <user-outlined />
-          <span>创建作业</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <video-camera-outlined />
-          <span>查看作业</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <upload-outlined />
-          <span>数据统计</span>
-        </a-menu-item>
-         <a-menu-item key="4">
-          <upload-outlined />
-          <span>个人信息</span>
-        </a-menu-item>
-      </a-menu>
+    <div class="logo"></div>
+    <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
+      <a-menu-item v-for="item in menuContent" :key="item.key">
+        <user-outlined />
+        <span>{{item.text}}</span>
+      </a-menu-item>
+    </a-menu>
   </div>
 </template>
 <script>
+import menu from '../data/menu.json'
 import {
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
 } from '@ant-design/icons-vue';
+import { ref } from 'vue';
 export default {
   name: 'Sider',
   components: {
     UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined
+    // UploadOutlined
   },
-  data() {
+  setup () {
+    const menuContent = ref(menu)
     return {
-      selectedKeys: ['1'],
+      menuContent
+    }
+  },
+  data () {
+    return {
+      selectedKeys: ['work_lib'],
       collapsed: false,
     };
   },
