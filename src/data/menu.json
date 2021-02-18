@@ -1,4 +1,4 @@
 [ { "text": "作业库", "key": "work_lib" },
   { "text": "数据统计", "key": "data_statistics" },
-  { "text": "个人信息", "icon": "user_info" }
+  { "text": "个人信息", "key": "user_info" }
 ]

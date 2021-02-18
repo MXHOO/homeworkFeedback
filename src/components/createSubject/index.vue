@@ -1,8 +1,10 @@
 <template>
-  <router-view></router-view>
+  <div>创建题目</div>
 </template>
 <script>
 export default {
-  name: 'Content'
+  setup() {
+    return {}
+  }
 }
 </script>

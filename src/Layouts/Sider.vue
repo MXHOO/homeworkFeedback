@@ -2,7 +2,7 @@
   <div>
     <div class="logo"></div>
     <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
-      <a-menu-item v-for="item in menuContent" :key="item.key">
+      <a-menu-item v-for="item in menuContent" :key="item.key" @click="click">
         <user-outlined />
         <span>{{item.text}}</span>
       </a-menu-item>
@@ -15,24 +15,28 @@ import {
   UserOutlined,
 } from '@ant-design/icons-vue';
 import { ref } from 'vue';
+import {useRouter} from 'vue-router'
 export default {
   name: 'Sider',
   components: {
     UserOutlined,
-    // UploadOutlined
   },
   setup () {
+    const router = useRouter()
     const menuContent = ref(menu)
-    return {
-      menuContent
+    let selectedKeys = ref(['work_lib'])
+    let collapsed = ref(false)
+    let click = (item) =>{
+      selectedKeys.value = [item.key]
+      router.push({path: item.key })
     }
-  },
-  data () {
     return {
-      selectedKeys: ['work_lib'],
-      collapsed: false,
-    };
-  },
+      menuContent,
+      selectedKeys,
+      collapsed,
+      click
+    }
+  }
 }
 </script>
 <style>
