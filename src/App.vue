@@ -1,14 +1,17 @@
 <template>
-  <Layout class="system-layout">
-  </Layout>
+  <Login class="system-layout"></Login>
+  <!-- <Layout class="system-layout">
+  </Layout> -->
 </template>
 
 <script>
-import Layout from './Layouts/Layout'
+import Login from '@/Layouts/Login/index.vue'
+// import Layout from '@/Layouts/Layout'
 export default {
   name: 'App',
   components: {
-    Layout
+    Login
+    // Layout
   }
 }
 </script>

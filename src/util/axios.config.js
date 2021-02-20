@@ -5,11 +5,12 @@ import axios from 'axios'
 const service = axios.create({
   timeout: 20000,
   withCredentials: true,
-  baseURL: '/homework_feedback'
+  baseURL: '/api'
 })
 
 service.interceptors.request.use(config => {
-  console.log(config)
+  console.log('请求拦截', config)
+  return config
 })
 
 service.interceptors.response.use(response => {

@@ -2,7 +2,7 @@
   <div>
     <a-button type="primary" @click="showModal">创建作业</a-button>
     <div id="edit"></div>
-    <a-modal v-model:visible="visible" title="创建题目" @ok="handleOk">
+    <a-modal v-model:visible="visible" title="创建题目" @ok="handleOk" @cancel="cancelModal">
       <p>题目类型</p>
       <a-select v-model:value="value1" style="width: 120px; margin: 10px;" ref="select" @change="selectChange">
         <a-select-option value="单选">单选题</a-select-option>
@@ -11,7 +11,12 @@
         <a-select-option value="主观">主观题</a-select-option>
       </a-select>
       <p>题干</p>
-      <div id="content"></div>
+      <div id="subjectContent">
+      </div>
+      <p>选项</p>
+      <div id="optionContent">
+
+      </div>
     </a-modal>
   </div>
 </template>
@@ -22,7 +27,8 @@ import {
   editContent,
   visible,
   value1,
-  selectChange
+  selectChange,
+  cancelModal
 } from './index.js'
 import { reactive, ref } from 'vue'
 export default {
@@ -47,7 +53,8 @@ export default {
       showModal,
       handleOk,
       value1,
-      selectChange
+      selectChange,
+      cancelModal
     }
   }
 }
