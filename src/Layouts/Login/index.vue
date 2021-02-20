@@ -5,7 +5,7 @@
         <a-input v-model:value="user.account"></a-input>
       </a-form-item>
       <a-form-item label="密码：">
-        <a-input v-model:value="user.account"></a-input>
+        <a-input v-model:value="user.password"></a-input>
       </a-form-item>
       <a-button type="primary" @click="login">登录</a-button>
     </a-form>
@@ -21,7 +21,8 @@ export default {
       password: ''
     })
     const login = async () => {
-      await loginHandler( user)
+      const data =  await loginHandler(user)
+      console.log('请求回来的token', data)
     }
     return {
       user,

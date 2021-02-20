@@ -2,7 +2,7 @@ import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 import Editor from 'wangeditor'
 // // eslint-disable-next-line no-unused-vars
-// import CustomizeEditor from './editor.js'
+import CustomizeEditor from './editor.js'
 import {
   ref,
   nextTick,
@@ -16,11 +16,11 @@ let editor = null
 // 创建编辑器
 const createEditor = (id) => {
   let editor = null
-  // if (value1.value === '填空') {
-  //   editor = new CustomizeEditor(document.getElementById('subjectContent'))
-  // } else {
-  //   editor = new Editor(document.getElementById('subjectContent'))
-  // }
+  if (value1.value === '填空') {
+    editor = new CustomizeEditor(document.getElementById('subjectContent'))
+  } else {
+    editor = new Editor(document.getElementById('subjectContent'))
+  }
   editor = new Editor(document.getElementById(id))
   editor.highlight = hljs
   editor.config.showFullScreen = false

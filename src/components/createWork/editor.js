@@ -1,12 +1,12 @@
 // 添加填空选项
-import Editor from 'wangeditor'
+import CustomizeEditor from 'wangeditor'
 const {
   BtnMenu
-} = Editor
+} = CustomizeEditor
 class fillMenu extends BtnMenu {
   constructor(editor) {
     editor.count = 0
-    const $elem = Editor.$(
+    const $elem = CustomizeEditor.$(
       `<div class="w-e-menu" data-title="填空">
             <p>[填空]</p>
         </div>`
@@ -18,6 +18,6 @@ class fillMenu extends BtnMenu {
     this.editor.cmd.do('insertHTML', `<p>[填空${this.editor.count}]</p>`)
   }
 }
-Editor.registerMenu('fillMenu', fillMenu)
+CustomizeEditor.registerMenu('fillMenu', fillMenu)
 
-export default Editor
+export default CustomizeEditor

@@ -15,12 +15,14 @@ service.interceptors.request.use(config => {
 
 service.interceptors.response.use(response => {
   const { data } = response
+  console.log('response', data)
   switch(data.code) {
     case 0: 
       Promise.resolve(data.data)
       break
     case 1001:
-      window.location.href = 'login.html'
+      console.log('状态码1001')
+      // window.location.href = 'login.html'
       break
     case 1002:
       console.log('没有权限访问')
