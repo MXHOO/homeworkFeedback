@@ -1,8 +1,8 @@
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 import Editor from 'wangeditor'
-// // eslint-disable-next-line no-unused-vars
-import CustomizeEditor from './editor.js'
+// eslint-disable-next-line no-unused-vars
+// import CustomizeEditor from './editor.js'
 import {
   ref,
   nextTick,
@@ -11,16 +11,12 @@ import {
 const visible = ref(false)
 const subject = reactive({}) // 每个题目为一个对象
 let editContent
-const value1 = ref('')
+const subjectType = ref('')
 let editor = null
 // 创建编辑器
+// eslint-disable-next-line no-unused-vars
 const createEditor = (id) => {
   let editor = null
-  if (value1.value === '填空') {
-    editor = new CustomizeEditor(document.getElementById('subjectContent'))
-  } else {
-    editor = new Editor(document.getElementById('subjectContent'))
-  }
   editor = new Editor(document.getElementById(id))
   editor.highlight = hljs
   editor.config.showFullScreen = false
@@ -41,8 +37,6 @@ const createEditor = (id) => {
 const showModal = async () => {
   visible.value = true
   await nextTick()
-  createEditor('subjectContent').create()
-  createEditor('optionContent').create()
 }
 
 const cancelModal = () => {
@@ -57,7 +51,6 @@ const selectChange = () => {
   if(editor) {
     editor.destroy()
     editor = null
-    createEditor('subjectContent')
   }
 }
 
@@ -71,12 +64,11 @@ const replaceFill = (html) => {
 const handleOk = () => {
   // editContent = editor.txt.getJSON()
   const html = editor.txt.html()
-  if (value1.value === '填空') {
+  if (subjectType.value === '填空') {
     replaceFill(html)
   } else {
     document.getElementById('edit').innerHTML = html
   }
-  // console.log('编辑框中的内容', editContent)
   visible.value = false
   editor.destroy()
   editor = null
@@ -87,7 +79,7 @@ export {
   handleOk,
   editContent,
   visible,
-  value1,
+  subjectType,
   selectChange,
   cancelModal,
   subject
