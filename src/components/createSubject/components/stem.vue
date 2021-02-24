@@ -3,7 +3,7 @@
   </div>
 </template>
 <script>
-import { onBeforeUnmount, onMounted, watchEffect } from 'vue'
+import { onBeforeUnmount, onMounted, watch} from 'vue'
 import fillMenu from '@/components/createSubject/fillMenu.js'
 import editorConfig from '@/components/createSubject/editorConfig.js'
 import Editor from 'wangeditor'
@@ -13,10 +13,9 @@ export default {
   },
   setup (props) {
     let editor = null
-    watchEffect(() => {
-      console.log('这块走了吗')
-      // destroyEditor()
-      // createEditor()
+    watch(() => props.subjectType, () => {
+      destroyEditor()
+      createEditor()
     })
 
     // 创建编辑器
