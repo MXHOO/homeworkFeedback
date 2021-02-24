@@ -1,4 +1,6 @@
 import hljs from 'highlight.js'
+import 'highlight.js/styles/github.css'
+// 编辑器配置
 const editorConfig = (obj) => {
    const temp = {
     highlight: hljs,

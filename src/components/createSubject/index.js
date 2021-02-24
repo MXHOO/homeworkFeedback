@@ -1,9 +1,6 @@
 import editorConfig from '@/components/createSubject/editorConfig.js'
 import fillMenu from '@/components/createSubject/fillMenu.js'
-import 'highlight.js/styles/github.css'
 import Editor from 'wangeditor'
-// eslint-disable-next-line no-unused-vars
-// import CustomizeEditor from './editor.js'
 import {
   ref,
   reactive
@@ -11,7 +8,7 @@ import {
 const visible = ref(false)
 const subject = reactive({}) // 每个题目为一个对象
 let editContent
-const subjectType = ref('填空')
+const subjectType = ref('')
 let editor = null
 // 创建编辑器
 const createEditor = (id) => {
@@ -54,7 +51,6 @@ const replaceFill = (html) => {
 
 // 创建题目完成
 const handleOk = () => {
-  // editContent = editor.txt.getJSON()
   const html = editor.txt.html()
   if (subjectType.value === '填空') {
     replaceFill(html)
