@@ -2,8 +2,6 @@ import editorConfig from '@/components/createSubject/editorConfig.js'
 import fillMenu from '@/components/createSubject/fillMenu.js'
 import 'highlight.js/styles/github.css'
 import Editor from 'wangeditor'
-// eslint-disable-next-line no-unused-vars
-// import CustomizeEditor from './editor.js'
 import {
   ref,
   reactive

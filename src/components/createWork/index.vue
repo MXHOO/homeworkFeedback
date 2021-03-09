@@ -2,8 +2,8 @@
   <div>
     <a-button type="primary" @click="showModal">创建作业</a-button>
     <div id="edit"></div>
-    <a-modal v-model:visible="visible" title="创建题目" @ok="handleOk" @cancel="cancelModal">
-      <p>题目类型</p>
+    <a-modal v-model:visible="visible" title="创建题目" @ok="handleOk" @cancel="cancelModal" width="800px">
+      <h3>题目类型</h3>
       <a-select v-model:value="subjectType" style="width: 120px; margin: 10px;" ref="select" @change="selectChange">
         <a-select-option value="单选">单选题</a-select-option>
         <a-select-option value="多选">多选题</a-select-option>
@@ -11,11 +11,11 @@
         <a-select-option value="主观">主观题</a-select-option>
       </a-select>
       <div>
-        题目部分
+        <h3>题目部分</h3>
         <stem :subjectType="subjectType"></stem>
       </div>
       <div>
-        选项部分
+        <h3>选项部分</h3>
         <singleChoice v-if="subjectType === '单选'"></singleChoice>
         <multipleChoice v-if="subjectType === '多选'"></multipleChoice>
         <fillBlank v-if="subjectType === '填空'" ref="fillBlank"></fillBlank>

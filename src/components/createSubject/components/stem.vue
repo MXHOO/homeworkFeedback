@@ -3,7 +3,7 @@
   </div>
 </template>
 <script>
-import { onBeforeUnmount, onMounted, watch} from 'vue'
+import { onBeforeUnmount, onMounted, reactive, watch} from 'vue'
 import fillMenu from '@/components/createSubject/fillMenu.js'
 import editorConfig from '@/components/createSubject/editorConfig.js'
 import Editor from 'wangeditor'
@@ -12,6 +12,11 @@ export default {
     subjectType: String
   },
   setup (props) {
+    const content = reactive({
+      html: '',
+      text: ''
+    })
+
     let editor = null
     watch(() => props.subjectType, () => {
       destroyEditor()
@@ -48,6 +53,7 @@ export default {
       destroyEditor()
     })
     return {
+      content
     }
   }
 }
