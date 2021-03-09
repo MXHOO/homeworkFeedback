@@ -16,10 +16,14 @@
       </div>
       <div>
         <h3>选项部分</h3>
-        <singleChoice v-if="subjectType === '单选'"></singleChoice>
-        <multipleChoice v-if="subjectType === '多选'"></multipleChoice>
-        <fillBlank v-if="subjectType === '填空'" ref="fillBlank"></fillBlank>
-        <subjective v-if="subjectType === '主观'"></subjective>
+        <singleChoice ref="singleChoiceRef" v-if="subjectType === '单选'"></singleChoice>
+        <multipleChoice ref="multipleChoiceRef" v-if="subjectType === '多选'"></multipleChoice>
+        <fillBlank ref="fillBlankRef"  v-if="subjectType === '填空'"></fillBlank>
+        <subjective ref="subjectiveRef" v-if="subjectType === '主观'"></subjective>
+      </div>
+      <div>
+        <h3>分值</h3>
+         <a-input-number v-model:value="score" :min="1" :max="10" />
       </div>
     </a-modal>
   </div>
@@ -32,7 +36,12 @@ import {
   visible,
   subjectType,
   selectChange,
-  cancelModal
+  cancelModal,
+  singleChoiceRef,
+  multipleChoiceRef,
+  subjectiveRef,
+  fillBlankRef,
+  score
 } from './index.js'
 import singleChoice from '@/components/createSubject/components/singleChoice.vue'
 import multipleChoice from '@/components/createSubject/components/multipleChoice.vue'
@@ -51,7 +60,7 @@ export default {
   props: {
     user: {
       type: String,
-      default: '111'
+      default: ''
     }
   },
   setup () {
@@ -69,10 +78,15 @@ export default {
       handleOk,
       subjectType,
       selectChange,
-      cancelModal
+      cancelModal,
+      singleChoiceRef,
+      multipleChoiceRef,
+      subjectiveRef,
+      fillBlankRef,
+      score
     }
   }
-}
+}    
 </script>
 <style scoped>
 input {

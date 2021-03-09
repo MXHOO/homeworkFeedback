@@ -4,7 +4,7 @@
   </div>
   <div>
     <a-radio-group v-model:value="rightAnswer" button-style="solid">
-      <a-radio class="radio" v-for="(item, index) in optionList" :value="item.value" :label="item.label" :key="item.value">
+      <a-radio class="radio" v-for="(item, index) in optionList" :value="index" :label="index" :key="item.key">
         <p class="title">选项{{index}}</p>
         <div  class="option markdown" :id="'option_' + index"></div>
         <div class="minus"><MinusCircleOutlined @click="removeOption(item)"/></div>
@@ -30,19 +30,21 @@ export default {
     const result = reactive({})
     let editor = null
     // 新增选项
+    let editorList = reactive([])
     const addOption = function () {
-      optionList.push({ id: 'option', label: '', value: '' })
-      console.log(optionList.length)
+      optionList.push({ key: Date.now() })
       nextTick(() => {
         const element = document.getElementById(`option_${optionList.length-1}`)
         const temp = new Editor(element)
         editorConfig(temp)
         temp.create()
+        editorList.push(temp)
       })
     }
     // 移除选项
     const removeOption = function (item) {
       optionList.splice(item, 1)
+      editorList.slice(item,1)
     }
     onMounted(() => {
       editor = new Editor(document.getElementById('optionContent'))
@@ -60,7 +62,8 @@ export default {
       rightAnswer,
       addOption,
       removeOption,
-      result
+      result,
+      editorList
     }
   }
 }
