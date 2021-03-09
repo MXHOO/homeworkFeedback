@@ -1,5 +1,7 @@
 // 封装axios
 import axios from 'axios'
+import {useRouter} from 'vue-router'
+const router = useRouter()
 
 
 const service = axios.create({
@@ -31,10 +33,16 @@ service.interceptors.response.use(response => {
       break
     case 1001:
       console.log('状态码1001')
+      setTimeout(() => {
+        router.push()
+      }, 200)
       // window.location.href = 'login.html'
       break
     case 1002:
       console.log('没有权限访问')
+      setTimeout(() => {
+        router.push()
+      }, 200)
       break
     default:
       console.log('其他')

@@ -11,12 +11,14 @@ const subject = reactive({}) // 每个题目为一个对象
 let editContent
 const subjectType = ref('填空')
 const score = ref(0)
+
 // 不同题型对应的数据
 const singleChoiceRef = ref(null)
 const multipleChoiceRef = ref(null)
 const fillBlankRef = ref(null)
 const subjectiveRef = ref(null)
 let editor = null
+
 // 创建编辑器
 const createEditor = (id) => {
   const key = 'fillMenu'
@@ -73,6 +75,9 @@ const handleOk = () => {
   // } else {
   //   document.getElementById('edit').innerHTML = html
   // }
+  const result = {
+    score: score.value
+  }
   switch(subjectType.value) {
     case '填空': console.log('填空')
     console.log(fillBlankRef.value)
@@ -93,6 +98,7 @@ const handleOk = () => {
     break
     default: console.log('其他的')
   }
+  console.log(result)
   visible.value = false
   cancelModal()
 
