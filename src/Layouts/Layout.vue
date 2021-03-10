@@ -3,8 +3,8 @@
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <Sider></Sider>
     </a-layout-sider>
-    <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
+    <a-layout style="height: 100%; ">
+      <a-layout-header style="background: #fff; padding: 0;">
         <Header></Header>
       </a-layout-header>
       <a-layout-content
