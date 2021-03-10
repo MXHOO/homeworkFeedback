@@ -15,10 +15,8 @@ const service = axios.create({
 
 service.interceptors.request.use(config => {
   console.log('请求拦截', config)
-  if(config.url === '/login') {
-    console.log('登录')
-  } else {
-    console.log('其他')
+  if(config.url !== '/user/login') {
+    config.headers.token =  sessionStorage.getItem('token')
   }
   return config
 })

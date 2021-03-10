@@ -13,7 +13,8 @@ const editorConfig = (obj) => {
       'italic',
       'underline',
       'code'
-    ]
+    ],
+    height: 100
   }
   Object.assign(obj, temp)
   Object.assign(obj.config, config)

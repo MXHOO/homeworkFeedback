@@ -1,5 +1,6 @@
 import editorConfig from '@/components/createSubject/editorConfig.js'
 import fillMenu from '@/components/createSubject/fillMenu.js'
+import 'highlight.js/styles/github.css'
 import Editor from 'wangeditor'
 import {
   ref,
@@ -8,13 +9,16 @@ import {
 const visible = ref(false)
 const subject = reactive({}) // 每个题目为一个对象
 let editContent
-const subjectType = ref('')
+const subjectType = ref('填空')
+const score = ref(0)
+
 // 不同题型对应的数据
 const singleChoiceRef = ref(null)
 const multipleChoiceRef = ref(null)
 const fillBlankRef = ref(null)
 const subjectiveRef = ref(null)
 let editor = null
+
 // 创建编辑器
 const createEditor = (id) => {
   const key = 'fillMenu'
@@ -34,9 +38,16 @@ const showModal = async () => {
 }
 
 const cancelModal = () => {
-  if(editor) {
-    editor.destroy()
-    editor = null
+  editor && editor.destroy()
+  editor = null
+  if(subjectType.value === '单选') {
+    if(singleChoiceRef.value.editorList && singleChoiceRef.value.editorList.length > 0) {
+      singleChoiceRef.value.editorList.forEach((element) => {
+        element.destroy()
+      });
+      singleChoiceRef.value.elementList.value = []
+      singleChoiceRef.value.optionList.value = []
+    }
   }
 }
 
@@ -55,28 +66,58 @@ const replaceFill = (html) => {
   document.getElementById('edit').innerHTML = temp
 }
 
-// 创建题目完成
-const handleOk = () => {
+function processParam(){
+  const param = {
+    content: {
+      score: score.value
+    },
+  }
   switch(subjectType.value) {
     case '填空': console.log('填空')
+    param.problem_type = 3
+    console.log(fillBlankRef.value)
     break
-    case '单选': console.log('单选')
+
+    case '单选':
+    if(singleChoiceRef.value.editorList && singleChoiceRef.value.editorList.length > 0) {
+      const options = []
+      const result = singleChoiceRef.value.editorList.map((element,index) => {
+        options.push({ key: String.fromCharCode(65 + parseInt(index)), value: element.txt.text() })
+        return options
+      })
+      param.content.options = result
+    }
+    param.problem_type = 1
     break
+
     case '多选': console.log('多选')
+    param.problem_type = 2
+    console.log(multipleChoiceRef.value)
     break
+
     case '主观': console.log('主观')
+    param.problem_type = 4
+    console.log(subjectiveRef.value)
     break
+
     default: console.log('其他的')
   }
+
+  console.log(param)
+
+}
+// 创建题目完成
+const handleOk = () => {
+  processParam()
+  // editContent = editor.txt.getJSON()
   // const html = editor.txt.html()
   // if (subjectType.value === '填空') {
   //   replaceFill(html)
   // } else {
   //   document.getElementById('edit').innerHTML = html
   // }
+  cancelModal()
   visible.value = false
-  editor.destroy()
-  editor = null
 }
 
 export {
@@ -92,5 +133,6 @@ export {
   singleChoiceRef,
   multipleChoiceRef,
   subjectiveRef,
-  fillBlankRef
+  fillBlankRef,
+  score
 }

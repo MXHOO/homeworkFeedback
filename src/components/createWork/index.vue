@@ -1,105 +1,56 @@
 <template>
   <div>
-    <a-button type="primary" @click="showModal">创建作业</a-button>
-    <div id="edit"></div>
-    <a-modal v-model:visible="visible" title="创建题目" @ok="handleOk" @cancel="cancelModal" width="800px">
-      <h3>题目类型</h3>
-      <a-select v-model:value="subjectType" style="width: 120px; margin: 10px;" ref="select" @change="selectChange">
-        <a-select-option value="单选">单选题</a-select-option>
-        <a-select-option value="多选">多选题</a-select-option>
-        <a-select-option value="填空">填空题</a-select-option>
-        <a-select-option value="主观">主观题</a-select-option>
-      </a-select>
-      <div>
-        <h3>题目部分</h3>
-        <stem :subjectType="subjectType"></stem>
-      </div>
-      <div>
-        <h3>选项部分</h3>
-        <singleChoice ref="singleChoiceRef" v-if="subjectType === '单选'"></singleChoice>
-        <multipleChoice ref="multipleChoiceRef" v-if="subjectType === '多选'"></multipleChoice>
-        <fillBlank ref="fillBlankRef"  v-if="subjectType === '填空'"></fillBlank>
-        <subjective ref="subjectiveRef" v-if="subjectType === '主观'"></subjective>
-      </div>
-      <div>
-        <h3>分值</h3>
-         <a-input-number v-model:value="score" :min="1" :max="10" />
-      </div>
+    <a-row>
+      <a-form layout="inline">
+        <a-form-item>
+          <a-input></a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-input></a-input>
+        </a-form-item>
+      </a-form>
+    <a-col :span="6">
+    </a-col>
+    <a-col :span="6">col-6</a-col>
+    <a-col :span="6">col-6</a-col>
+    <a-col :span="6"><a-button type="primary" @click="showModal">创建作业</a-button></a-col>
+  </a-row>
+    
+    <a-modal title="创建作业"  v-model:visible="visible" @onCancel="cancelModal" @onOk="cancelModal">
+      <a-form>
+        <a-form-item label="作业名字">
+          <a-input v-model="work.homework_name"></a-input>
+        </a-form-item>
+        <a-form-item label="作业须知">
+          <a-input type="textarea" v-model="work.homework_notice"></a-input>
+        </a-form-item>
+      </a-form>
     </a-modal>
+    <div id="edit"></div>
   </div>
 </template>
 <script>
-import {
-  showModal,
-  handleOk,
-  editContent,
-  visible,
-  subjectType,
-  selectChange,
-  cancelModal,
-  singleChoiceRef,
-  multipleChoiceRef,
-  subjectiveRef,
-  fillBlankRef,
-  score
-} from './index.js'
-import singleChoice from '@/components/createSubject/components/singleChoice.vue'
-import multipleChoice from '@/components/createSubject/components/multipleChoice.vue'
-import subjective from '@/components/createSubject/components/subjective.vue'
-import fillBlank from '@/components/createSubject/components/fillBlank.vue'
-import stem from '@/components/createSubject/components/stem.vue'
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref } from 'vue'
+
 export default {
-  components: {
-    singleChoice,
-    multipleChoice,
-    subjective,
-    fillBlank,
-    stem
-  },
-  props: {
-    user: {
-      type: String,
-      default: ''
-    }
-  },
-  setup () {
-    onMounted(() => {
+  setup() {
+    const work = reactive({
+      homework_name: '',
+      homework_notice: ''
     })
-    // 下拉框
-    let editorOption = reactive({})
-    let content = ref('')
+    const visible = ref(false)
+    const showModal = () => {
+      visible.value = true
+    }
+    const cancelModal = () => {
+      visible.value = false
+    }
     return {
-      content,
-      editContent,
-      editorOption,
+      work,
       visible,
       showModal,
-      handleOk,
-      subjectType,
-      selectChange,
-      cancelModal,
-      singleChoiceRef,
-      multipleChoiceRef,
-      subjectiveRef,
-      fillBlankRef,
-      score
+      cancelModal
     }
   }
-}    
+}
 </script>
-<style scoped>
-input {
-  border-radius: 4px;
-  margin: 5px;
-}
-blockquote {
-  display: block;
-  border-left: 8px solid #d0e5f2;
-  padding: 5px 10px;
-  margin: 10px 0;
-  line-height: 1.4;
-  font-size: 100%;
-  background-color: #f1f1f1;
-}
-</style>

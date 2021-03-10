@@ -1,5 +1,5 @@
 <template>
-  <a-layout id="layout-container">
+  <a-layout id="layout-container" class="layout">
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <Sider></Sider>
     </a-layout-sider>
@@ -32,3 +32,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.layout {
+  height: 100%;
+}
+</style>
