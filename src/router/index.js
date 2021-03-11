@@ -7,6 +7,7 @@ import Layout from '@/Layouts/Layout'
 import createWork from '@/components/createWork/index.vue'
 import userInfo from '@/components/userInfo/index.vue'
 import statisticsData from '@/components/statisticsData/index.vue'
+import editHomework from '@/components/createSubject/index.vue'
 const routes = [{
   path: '/',
   component: Login
@@ -25,6 +26,10 @@ const routes = [{
       path: '/user_info',
       component: userInfo
     },
+    {
+      path: '/create_subject/:homeworkId',
+      component: editHomework
+    }
   ]
 }, ]
 const router = createRouter({

@@ -23,7 +23,7 @@
   </a-row>
     <a-table :columns="columns" :pagination="{ pageSize: 10 }" :data-source="tableList">
     </a-table>
-    <a-modal title="创建作业"  v-model:visible="visible" @onCancel="cancelModal" @onOk="cancelModal">
+    <a-modal title="创建作业"  v-model:visible="visible" @cancel="cancelModal" @ok="handleOk">
       <a-form>
         <a-form-item label="作业名字" placeholder="请输入作业名字">
           <a-input v-model:value="work.homework_name"></a-input>
@@ -38,9 +38,10 @@
 </template>
 <script>
 import { reactive, ref } from 'vue'
-
+import {useRouter} from 'vue-router'
 export default {
   setup() {
+    const route = useRouter() 
     const work = reactive({
       homework_name: '',
       homework_notice: ''
@@ -50,11 +51,6 @@ export default {
 
     }
     const columns = [
-      {
-        title: '作业ID',
-        dataIndex: 'homework_id',
-        align: 'center'
-      },
       {
         title: '作业名字',
         dataIndex: 'homework_name',
@@ -84,6 +80,10 @@ export default {
     const cancelModal = () => {
       visible.value = false
     }
+    const handleOk = () => {
+      // TODO:创建作业后，跳转到对应的homeworkId
+      route.push({path: '/create_subject/1'})
+    }
     return {
       work,
       visible,
@@ -92,7 +92,8 @@ export default {
       columns,
       tableList,
       search,
-      className
+      className,
+      handleOk
     }
   }
 }

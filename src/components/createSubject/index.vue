@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-button type="primary" @click="showModal">创建作业</a-button>
+    <a-button type="primary" @click="showModal">创建题目</a-button>
     <div id="edit"></div>
     <a-modal v-model:visible="visible" title="创建题目" @ok="handleOk" @cancel="cancelModal" width="800px">
       <h3>题目类型</h3>
