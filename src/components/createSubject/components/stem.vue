@@ -16,8 +16,7 @@ export default {
       html: '',
       text: ''
     })
-
-    let editor = null
+    let editor = reactive({})
     watch(() => props.subjectType, () => {
       destroyEditor()
       createEditor()
@@ -31,6 +30,10 @@ export default {
         editor.menus.extend(key, fillMenu)
         editorConfig(editor)
         editor.config.menus.push(key)
+        editor.config.onchange = function (newHtml) {
+          const fillList = newHtml.match(/【填空】/g)
+          console.log(fillList)
+        }
       } else {
         editorConfig(editor)
       }
@@ -47,13 +50,15 @@ export default {
 
     onMounted(() => {
       createEditor()
+      console.log('onMounted', editor)
     })
 
     onBeforeUnmount(() => {
       destroyEditor()
     })
     return {
-      content
+      content,
+      editor
     }
   }
 }

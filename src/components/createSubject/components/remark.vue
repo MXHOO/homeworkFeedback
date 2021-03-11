@@ -1,6 +1,6 @@
 <template>
   <p> <a-checkbox v-model:checked="checked">添加答案解析</a-checkbox></p>
-  <div id="optionContent">
+  <div id="remarkContent">
   </div>
 </template>
 <script>
@@ -13,7 +13,6 @@ export default {
     let editor = null
     let checked =ref(false)
     onMounted(() => {
-   
     })
     onBeforeUnmount(() => {
       if (editor) {
@@ -22,7 +21,7 @@ export default {
       }
     })
     function createE() {
-      editor = new Editor(document.getElementById('optionContent'))
+      editor = new Editor(document.getElementById('remarkContent'))
       editorConfig(editor)
       editor.create()
     }

@@ -11,12 +11,10 @@
       </a-radio>
     </a-radio-group>
   </div>
-  <div id="optionContent">
-  </div>
 </template>
 <script>
 import { MinusCircleOutlined } from '@ant-design/icons-vue'
-import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { nextTick, onBeforeUnmount, reactive, ref } from 'vue'
 import 'highlight.js/styles/github.css'
 import editorConfig from '@/components/createSubject/editorConfig.js'
 import Editor from 'wangeditor'
@@ -26,9 +24,8 @@ export default {
   },
   setup () {
     const rightAnswer = ref('')
-    const optionList = reactive([])
+    let optionList = reactive([])
     const result = reactive({})
-    let editor = null
 
     // 新增选项
     let editorList = reactive([])
@@ -49,16 +46,10 @@ export default {
       editorList.slice(item,1)
     }
 
-    onMounted(() => {
-      editor = new Editor(document.getElementById('optionContent'))
-      editorConfig(editor)
-      editor.create()
-    })
-
     onBeforeUnmount(() => {
-      if (editor) {
-        editor.destroy()
-        editor = null
+      if(optionList && optionList.length > 0) {
+        optionList = []
+        editorList.length> 0 && editorList.forEach(item => item && item.destroy())
       }
     })
 

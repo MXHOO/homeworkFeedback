@@ -1,7 +1,4 @@
-import editorConfig from '@/components/createSubject/editorConfig.js'
-import fillMenu from '@/components/createSubject/fillMenu.js'
 import 'highlight.js/styles/github.css'
-import Editor from 'wangeditor'
 import {
   ref,
   reactive
@@ -13,24 +10,13 @@ const subjectType = ref('填空')
 const score = ref(0)
 
 // 不同题型对应的数据
+const stemRef = ref(null)
 const singleChoiceRef = ref(null)
 const multipleChoiceRef = ref(null)
 const fillBlankRef = ref(null)
 const subjectiveRef = ref(null)
 let editor = null
 
-// 创建编辑器
-const createEditor = (id) => {
-  const key = 'fillMenu'
-  editor = new Editor(document.getElementById(id))
-  if(subjectType.value === '') {
-    editor.menus.extend(key, fillMenu)
-    editorConfig(editor)
-    editor.config.menus.push(key)
-  }
-  editor.create()
-  return editor
-}
 
 // 打开弹窗
 const showModal = async () => {
@@ -45,9 +31,10 @@ const cancelModal = () => {
       singleChoiceRef.value.editorList.forEach((element) => {
         element.destroy()
       });
-      singleChoiceRef.value.elementList.value = []
-      singleChoiceRef.value.optionList.value = []
+      singleChoiceRef.value.elementList = []
+      singleChoiceRef.value.optionList = []
     }
+    subjectType.value = '填空'
   }
 }
 
@@ -62,14 +49,16 @@ const selectChange = () => {
 // 将填空的选项替换为输入框
 // eslint-disable-next-line no-unused-vars
 const replaceFill = (html) => { 
-  const temp = html.replace(/\[填空[1-9]+\]/g, '<input class="fillContent" style="margin: 10px;"/>')
+  const temp = html.replace(/【填空】/g, '<input class="fillContent" style="margin: 10px;"/>')
   document.getElementById('edit').innerHTML = temp
 }
 
 function processParam(){
+  console.log('题干部分', stemRef.value)
   const param = {
     content: {
-      score: score.value
+      score: score.value,
+      body: stemRef.value
     },
   }
   switch(subjectType.value) {
@@ -129,10 +118,10 @@ export {
   selectChange,
   cancelModal,
   subject,
-  createEditor,
   singleChoiceRef,
   multipleChoiceRef,
   subjectiveRef,
   fillBlankRef,
+  stemRef,
   score
 }

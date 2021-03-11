@@ -4,8 +4,6 @@
   </div>
   <div>
     <a-checkbox-group v-model:value="checkedList">
-      <div>
-      </div>
       <a-radio class="radio" v-for="(item, index) in optionList" :value="index" :label="index" :key="item.key">
         <p class="title">选项{{String.fromCharCode(65 + parseInt(index))}}</p>
         <div  class="option markdown" :id="'option_' + index"></div>
@@ -13,12 +11,10 @@
       </a-radio>
     </a-checkbox-group>
   </div>
-  <div id="optionContent">
-  </div>
 </template>
 <script>
 import { MinusCircleOutlined } from '@ant-design/icons-vue'
-import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import 'highlight.js/styles/github.css'
 import editorConfig from '@/components/createSubject/editorConfig.js'
 import Editor from 'wangeditor'
@@ -30,7 +26,6 @@ export default {
     const checkedList = ref('')
     const optionList = reactive([])
     const result = reactive({})
-    let editor = null
     // 新增选项
     let editorList = reactive([])
     const addOption = function () {
@@ -48,17 +43,6 @@ export default {
       optionList.splice(item, 1)
       editorList.slice(item,1)
     }
-    onMounted(() => {
-      editor = new Editor(document.getElementById('optionContent'))
-      editorConfig(editor)
-      editor.create()
-    })
-    onBeforeUnmount(() => {
-      if (editor) {
-        editor.destroy()
-        editor = null
-      }
-    })
     return {
       optionList,
       checkedList,
