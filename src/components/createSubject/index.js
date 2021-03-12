@@ -8,6 +8,9 @@ const subject = reactive({}) // 每个题目为一个对象
 let editContent
 const subjectType = ref('填空')
 const score = ref(0)
+const remarkContentRef = ref(null)
+// 题目创建后反显
+let edit = ref(null)
 
 // 不同题型对应的数据
 const stemRef = ref(null)
@@ -50,21 +53,20 @@ const selectChange = () => {
 // eslint-disable-next-line no-unused-vars
 const replaceFill = (html) => { 
   const temp = html.replace(/【填空】/g, '<input class="fillContent" style="margin: 10px;"/>')
-  document.getElementById('edit').innerHTML = temp
+  edit.value = temp
 }
 
 function processParam(){
-  console.log('题干部分', stemRef.value)
   const param = {
     content: {
       score: score.value,
-      body: stemRef.value
+      body: stemRef.value.stemList[0].txt.html()
     },
   }
   switch(subjectType.value) {
-    case '填空': console.log('填空')
+    case '填空':
     param.problem_type = 3
-    console.log(fillBlankRef.value)
+    replaceFill(stemRef.value.stemList[0].txt.html())
     break
 
     case '单选':
@@ -77,19 +79,18 @@ function processParam(){
       param.content.options = result
     }
     param.problem_type = 1
+    edit.value = param.content.options
     break
 
-    case '多选': console.log('多选')
+    case '多选':
     param.problem_type = 2
     console.log(multipleChoiceRef.value)
     break
 
-    case '主观': console.log('主观')
+    case '主观':
     param.problem_type = 4
     console.log(subjectiveRef.value)
     break
-
-    default: console.log('其他的')
   }
 
   console.log(param)
@@ -123,5 +124,7 @@ export {
   subjectiveRef,
   fillBlankRef,
   stemRef,
-  score
+  score,
+  edit,
+  remarkContentRef
 }

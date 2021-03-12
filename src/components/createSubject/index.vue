@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button type="primary" @click="showModal">创建题目</a-button>
-    <div id="edit"></div>
+    <div id="edit" v-html="edit"></div>
     <a-modal v-model:visible="visible" title="创建题目" @ok="handleOk" @cancel="cancelModal" width="800px">
       <a-form v-bind="layout">
         <a-form-item label="题目类型">
@@ -43,7 +43,8 @@ import {
   subjectiveRef,
   fillBlankRef,
   stemRef,
-  score
+  score,
+  edit
 } from './index.js'
 import remark from '@/components/createSubject/components/remark.vue'
 import singleChoice from '@/components/createSubject/components/singleChoice.vue'
@@ -67,7 +68,7 @@ export default {
     onMounted(() => {
     })
     const layout = {
-      labelCol: { span: 3 },
+      labelCol: { span: 4 },
       wrapperCol: { span: 20 },
     }
     // 下拉框
@@ -89,7 +90,8 @@ export default {
       fillBlankRef,
       stemRef,
       score,
-      layout
+      layout,
+      edit
     }
   }
 }    

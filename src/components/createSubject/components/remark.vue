@@ -1,6 +1,6 @@
 <template>
   <p> <a-checkbox v-model:checked="checked">添加答案解析</a-checkbox></p>
-  <div id="remarkContent">
+  <div id="remarkContent" ref="remarkContentRef">
   </div>
 </template>
 <script>
@@ -30,8 +30,8 @@ export default {
           createE()
       } else {
         if (editor) {
-        editor.destroy()
-        editor = null
+          editor.destroy()
+          editor = null
         }
       }
     })

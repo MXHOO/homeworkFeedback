@@ -4,17 +4,17 @@
   </div>
   <div>
     <a-checkbox-group v-model:value="checkedList">
-      <a-radio class="radio" v-for="(item, index) in optionList" :value="index" :label="index" :key="item.key">
+      <a-checkbox class="radio" v-for="(item, index) in optionList" :value="index" :label="index" :key="item.key">
         <p class="title">选项{{String.fromCharCode(65 + parseInt(index))}}</p>
         <div  class="option markdown" :id="'option_' + index"></div>
         <div class="minus"><MinusCircleOutlined @click="removeOption(item)"/></div>
-      </a-radio>
+      </a-checkbox>
     </a-checkbox-group>
   </div>
 </template>
 <script>
 import { MinusCircleOutlined } from '@ant-design/icons-vue'
-import { nextTick, reactive, ref } from 'vue'
+import { nextTick, reactive} from 'vue'
 import 'highlight.js/styles/github.css'
 import editorConfig from '@/components/createSubject/editorConfig.js'
 import Editor from 'wangeditor'
@@ -23,7 +23,7 @@ export default {
     MinusCircleOutlined
   },
   setup () {
-    const checkedList = ref('')
+    const checkedList = reactive([])
     const optionList = reactive([])
     const result = reactive({})
     // 新增选项
