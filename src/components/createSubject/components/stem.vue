@@ -37,9 +37,9 @@ export default {
           const fillList = newHtml.match(/【填空】/g)
           const list = fillList || []
           if (list.length !== blankList.length) {
-            console.log('不相等')
+            // console.log('不相等')
           } else {
-            console.log('相等就不用变')
+            // console.log('相等就不用变')
           }
           console.log(list)
         }

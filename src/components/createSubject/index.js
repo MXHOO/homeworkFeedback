@@ -1,4 +1,5 @@
 import 'highlight.js/styles/github.css'
+import {setSubject} from './handleSubject.js'
 import {
   ref,
   reactive
@@ -61,14 +62,10 @@ function processParam(){
     content: {
       score: score.value,
       body: stemRef.value.stemList[0].txt.html()
-    },
+    }
   }
+  console.log('题干内容----', stemRef.value.stemList[0].txt.text() )
   switch(subjectType.value) {
-    case '填空':
-    param.problem_type = 3
-    replaceFill(stemRef.value.stemList[0].txt.html())
-    break
-
     case '单选':
     if(singleChoiceRef.value.editorList && singleChoiceRef.value.editorList.length > 0) {
       const options = []
@@ -83,18 +80,27 @@ function processParam(){
     break
 
     case '多选':
+    if(multipleChoiceRef.value.editorList && multipleChoiceRef.value.editorList.length > 0) {
+      const options = []
+      const result = multipleChoiceRef.value.editorList.map((element,index) => {
+        options.push({ key: String.fromCharCode(65 + parseInt(index)), value: element.txt.text() })
+        return options
+      })
+      param.content.options = result
+    }
     param.problem_type = 2
-    console.log(multipleChoiceRef.value)
+    break
+
+    case '填空':
+      param.problem_type = 3
+      replaceFill(stemRef.value.stemList[0].txt.html())
     break
 
     case '主观':
     param.problem_type = 4
-    console.log(subjectiveRef.value)
     break
   }
-
-  console.log(param)
-
+  setSubject(param)
 }
 // 创建题目完成
 const handleOk = () => {
@@ -108,6 +114,7 @@ const handleOk = () => {
   // }
   cancelModal()
   visible.value = false
+  
 }
 
 export {

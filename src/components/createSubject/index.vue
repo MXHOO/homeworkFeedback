@@ -2,6 +2,7 @@
   <div>
     <a-button type="primary" @click="showModal">创建题目</a-button>
     <div id="edit" v-html="edit"></div>
+    <show-subject></show-subject>
     <a-modal v-model:visible="visible" title="创建题目" @ok="handleOk" @cancel="cancelModal" width="800px">
       <a-form v-bind="layout">
         <a-form-item label="题目类型">
@@ -46,6 +47,7 @@ import {
   score,
   edit
 } from './index.js'
+import showSubject from './showSubject.vue'
 import remark from '@/components/createSubject/components/remark.vue'
 import singleChoice from '@/components/createSubject/components/singleChoice.vue'
 import multipleChoice from '@/components/createSubject/components/multipleChoice.vue'
@@ -56,7 +58,8 @@ export default {
     singleChoice,
     multipleChoice,
     stem,
-    remark
+    remark,
+    showSubject
   },
   props: {
     user: {
