@@ -5,20 +5,24 @@
        <span v-html="item.content.body"></span>
         <div v-if="item && item.problem_type === 1">
           <a-radio-group>
-            <a-radio  v-for="(option,select_index) in item.content.options" :key="select_index" :value="option[key]">
-               {{option}}
-              <!-- option {{option}}
-                {{option[key]}}. {{option[value]}} -->
+            <a-radio style="display: block; line-height: 30px; height: 30px;"  v-for="(option,select_index) in item.content.options" :key="select_index" :value="option.key" :label="option.key">
+              {{option.key}}. {{option.value}}
             </a-radio>
           </a-radio-group>
         </div>
+
         <div v-if="item && item.problem_type === 2">
-          <a-checkout-group>
-            <a-checkout></a-checkout>
-          </a-checkout-group>
+          <a-checkbox-group>
+            <a-checkbox  v-for="(option,select_index) in item.content.options" :key="select_index" :value="option.key">
+              {{option.key}}. {{option.value}}
+            </a-checkbox>
+          </a-checkbox-group>
         </div>
+
         <div v-if="item && item.problem_type === 3">
+          <div></div>
         </div>
+
         <div v-if="item && item.problem_type === 4">
         </div>
       </a-form-item>
@@ -26,14 +30,21 @@
   </div>
 </template>
 <script>
+import { reactive, watch } from 'vue'
 import {getSubject} from './handleSubject'
 export default {
   setup() {
-    const subjectList = getSubject()
-    // let answerList = [...Array[subjectList.length]]
-    console.log('要展示的值', subjectList)
+    let subjectList = reactive([])
+    subjectList =getSubject()
+    watch(() => subjectList, val => {
+      subjectList = val
+    })
+    const length = subjectList.length || 0
+    let answerList = reactive([])
+    answerList = new Array(length).fill(null)
     return {
-      subjectList
+      subjectList,
+      answerList
     }
   }
 }

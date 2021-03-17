@@ -2,7 +2,7 @@ import 'highlight.js/styles/github.css'
 import {setSubject} from './handleSubject.js'
 import {
   ref,
-  reactive
+  reactive,
 } from 'vue'
 const visible = ref(false)
 const subject = reactive({}) // 每个题目为一个对象
@@ -19,6 +19,7 @@ const singleChoiceRef = ref(null)
 const multipleChoiceRef = ref(null)
 const fillBlankRef = ref(null)
 const subjectiveRef = ref(null)
+const showSubjectRef = ref(null)
 let editor = null
 
 
@@ -56,22 +57,20 @@ const replaceFill = (html) => {
   const temp = html.replace(/【填空】/g, '<input class="fillContent" style="margin: 10px;"/>')
   edit.value = temp
 }
-
+// replaceFill(stemRef.value.stemList[0].txt.html())
 function processParam(){
   const param = {
     content: {
       score: score.value,
-      body: stemRef.value.stemList[0].txt.html()
+      body: stemRef.value.content.html
     }
   }
-  console.log('题干内容----', stemRef.value.stemList[0].txt.text() )
+  console.log('题干内容----',stemRef.value.content.html)
   switch(subjectType.value) {
     case '单选':
     if(singleChoiceRef.value.editorList && singleChoiceRef.value.editorList.length > 0) {
-      const options = []
       const result = singleChoiceRef.value.editorList.map((element,index) => {
-        options.push({ key: String.fromCharCode(65 + parseInt(index)), value: element.txt.text() })
-        return options
+        return { key: String.fromCharCode(65 + parseInt(index)), value: element.txt.text() }
       })
       param.content.options = result
     }
@@ -81,10 +80,8 @@ function processParam(){
 
     case '多选':
     if(multipleChoiceRef.value.editorList && multipleChoiceRef.value.editorList.length > 0) {
-      const options = []
       const result = multipleChoiceRef.value.editorList.map((element,index) => {
-        options.push({ key: String.fromCharCode(65 + parseInt(index)), value: element.txt.text() })
-        return options
+        return { key: String.fromCharCode(65 + parseInt(index)), value: element.txt.text() }
       })
       param.content.options = result
     }
@@ -93,7 +90,6 @@ function processParam(){
 
     case '填空':
       param.problem_type = 3
-      replaceFill(stemRef.value.stemList[0].txt.html())
     break
 
     case '主观':
@@ -114,7 +110,6 @@ const handleOk = () => {
   // }
   cancelModal()
   visible.value = false
-  
 }
 
 export {
@@ -133,5 +128,6 @@ export {
   stemRef,
   score,
   edit,
-  remarkContentRef
+  remarkContentRef,
+  showSubjectRef
 }

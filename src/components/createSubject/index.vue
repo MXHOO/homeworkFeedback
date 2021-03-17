@@ -2,7 +2,7 @@
   <div>
     <a-button type="primary" @click="showModal">创建题目</a-button>
     <div id="edit" v-html="edit"></div>
-    <show-subject></show-subject>
+    <show-subject ref="showSubjectRef"></show-subject>
     <a-modal v-model:visible="visible" title="创建题目" @ok="handleOk" @cancel="cancelModal" width="800px">
       <a-form v-bind="layout">
         <a-form-item label="题目类型">
@@ -45,14 +45,16 @@ import {
   fillBlankRef,
   stemRef,
   score,
-  edit
+  edit,
+  showSubjectRef
 } from './index.js'
 import showSubject from './showSubject.vue'
 import remark from '@/components/createSubject/components/remark.vue'
 import singleChoice from '@/components/createSubject/components/singleChoice.vue'
 import multipleChoice from '@/components/createSubject/components/multipleChoice.vue'
 import stem from '@/components/createSubject/components/stem.vue'
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref, onMounted, watch } from 'vue'
+import {getSubject} from './handleSubject.js'
 export default {
   components: {
     singleChoice,
@@ -74,6 +76,12 @@ export default {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
     }
+    watch(visible, (val) => {
+      console.log('这走了吗')
+      if(!val) {
+        showSubjectRef.value.subjectList = getSubject()
+      }
+    })
     // 下拉框
     let editorOption = reactive({})
     let content = ref('')
@@ -94,7 +102,8 @@ export default {
       stemRef,
       score,
       layout,
-      edit
+      edit,
+      showSubjectRef
     }
   }
 }    

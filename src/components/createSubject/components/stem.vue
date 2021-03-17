@@ -14,11 +14,10 @@ export default {
   setup (props) {
     let stemList = reactive([])
     const content = reactive({
-      html: '',
-      text: ''
+      html: ''
     })
     // 用来创建输入框
-    let blankList = reactive([])
+    // let blankList = reactive([])
     let editor = reactive({})
     watch(() => props.subjectType, () => {
       destroyEditor()
@@ -33,19 +32,13 @@ export default {
         editor.menus.extend(key, fillMenu)
         editorConfig(editor)
         editor.config.menus.push(key)
-        editor.config.onchange = function (newHtml) {
-          const fillList = newHtml.match(/【填空】/g)
-          const list = fillList || []
-          if (list.length !== blankList.length) {
-            // console.log('不相等')
-          } else {
-            // console.log('相等就不用变')
-          }
-          console.log(list)
-        }
+   
       } else {
         editorConfig(editor)
       }
+        editor.config.onchange = function (newHtml) {
+          content.html = newHtml
+        }
       editor.create()
       stemList.push(editor)
     }

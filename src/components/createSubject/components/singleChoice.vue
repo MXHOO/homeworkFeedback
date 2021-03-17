@@ -3,7 +3,7 @@
     <a-button type="primary" @click="addOption">增加选项</a-button>
   </div>
   <div>
-    <a-radio-group v-model:value="rightAnswer">
+    <a-radio-group v-model:a-radio-groupvalue="rightAnswer">
       <a-radio class="radio" v-for="(item, index) in optionList" :value="index" :label="index" :key="item.key">
         <p class="title">选项{{String.fromCharCode(65 + parseInt(index))}}</p>
         <div  class="option markdown" :id="'option_' + index"></div>
