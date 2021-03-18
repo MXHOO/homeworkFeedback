@@ -10,7 +10,7 @@ const configureWebpack = {
 }
 const url = 'http://10.3.16.185:8080'
 module.exports = {
-  publicPath: '/',
+  publicPath: './',
   devServer: {
     open: true,
     proxy: {
