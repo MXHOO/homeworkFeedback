@@ -4,10 +4,10 @@
     <a-col :span="18">
       <a-form layout="inline">
         <a-form-item>
-          <a-input v-model:value="homework_id" placeholder="请输入作业ID"></a-input>
+          <a-input v-model:value="work.homework_id" placeholder="请输入作业ID"></a-input>
         </a-form-item>
         <a-form-item>
-          <a-input v-model:value="homework_name" placeholder="请输入作业名称"></a-input>
+          <a-input v-model:value="work.homework_name" placeholder="请输入作业名称"></a-input>
         </a-form-item>
         <a-form-item>
           <a-select placeholder="请输入班级" v-model:value="className" style="width: 160px;">
@@ -22,6 +22,9 @@
     <a-col :span="6"><a-button type="primary" @click="showModal">创建作业</a-button></a-col>
   </a-row>
     <a-table :columns="columns" :pagination="{ pageSize: 10 }" :data-source="tableList" rowKey="homework_id">
+      <template>
+        
+      </template>
     </a-table>
     <a-modal title="创建作业"  v-model:visible="visible" @cancel="cancelModal" @ok="handleOk">
       <a-form>
@@ -65,6 +68,11 @@ export default {
         title: '最后修改时间',
         dataIndex: 'last_modified_time',
         align: 'center'
+      },
+      {
+        title: '操作',
+        dataIndex: 'opearte',
+        slots: { customRender: 'operation' }
       }
     ]
     const tableList =  [...Array(100)].map((_, i) => ({
