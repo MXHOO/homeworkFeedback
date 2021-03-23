@@ -1,13 +1,6 @@
-import { createStore } from 'vuex'
-const store = createStore({
-  state() {
-    return {
-      count: 1
-    }
-  },
-  getters() {
-    
-  }
-})
+import { user } from './modules/user'
+const module = {
+  user: user
+}
 
-export { store }
+export { module }

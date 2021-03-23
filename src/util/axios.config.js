@@ -8,16 +8,16 @@ const service = axios.create({
   timeout: 20000,
   withCredentials: true,
   baseURL: '/api',
-  headers: {
-    'token': sessionStorage.getItem("token")
-  }
+  // headers: {
+  //   'token': sessionStorage.getItem("token")
+  // }
 })
 
 service.interceptors.request.use(config => {
   console.log('请求拦截', config)
-  if(config.url !== '/user/login') {
-    config.headers.token =  sessionStorage.getItem('token')
-  }
+  // if(config.url !== '/user/login') {
+  //   config.headers.token =  sessionStorage.getItem('token')
+  // }
   return config
 })
 

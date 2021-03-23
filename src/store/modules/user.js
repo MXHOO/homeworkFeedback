@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-const store = createStore({
+const user = createStore({
   state: {
     userInfo: {}
   },
@@ -15,4 +15,4 @@ const store = createStore({
   }
 })
 
-export { store }
+export { user }

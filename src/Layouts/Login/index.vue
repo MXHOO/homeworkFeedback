@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-// import { loginHandler } from '@/services/login.js'
+import { loginHandler } from '@/services/login.js'
 import {useRouter} from 'vue-router'
 import { reactive } from 'vue'
 export default {
@@ -23,10 +23,9 @@ export default {
       password: ''
     })
     const login = async () => {
-      // const data =  await loginHandler(user)
-      // console.log('请求回来的token', data)
+      const data =  await loginHandler(user)
+      console.log('请求回来的token', data)
       router.push({path: '/work_lib'})
-
     }
     return {
       user,
