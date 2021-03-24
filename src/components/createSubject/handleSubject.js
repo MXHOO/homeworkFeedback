@@ -13,7 +13,7 @@ function setSubject(content) {
 function getSubject() {
   let list = []
   list = localStorage.getItem('subjectList') && [...JSON.parse(localStorage.getItem('subjectList'))]
-  return list
+  return list || []
 }
 
 export {setSubject, getSubject}

@@ -77,7 +77,6 @@ export default {
       wrapperCol: { span: 20 },
     }
     watch(visible, (val) => {
-      console.log('这走了吗')
       if(!val) {
         showSubjectRef.value.subjectList = getSubject()
       }

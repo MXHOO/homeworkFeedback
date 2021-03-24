@@ -27,11 +27,11 @@
       </template>
     </a-table>
     <a-modal title="创建作业"  v-model:visible="visible" @cancel="cancelModal" @ok="handleOk">
-      <a-form>
-        <a-form-item label="作业名字" placeholder="请输入作业名字">
+      <a-form :model="work" v-bind="layout" :rules="rules">
+        <a-form-item label="作业名字" placeholder="请输入作业名字" name="homework_name">
           <a-input v-model:value="work.homework_name"></a-input>
         </a-form-item>
-        <a-form-item label="作业须知" placeholder="请输入作业须知">
+        <a-form-item label="作业须知" placeholder="请输入作业须知" name="homework_notice">
           <a-textarea v-model:value="work.homework_notice"></a-textarea>
         </a-form-item>
       </a-form>
@@ -40,6 +40,7 @@
   </div>
 </template>
 <script>
+import { useForm } from '@ant-design-vue/use'
 import { reactive, ref } from 'vue'
 import {useRouter} from 'vue-router'
 export default {
@@ -49,6 +50,14 @@ export default {
       homework_name: '',
       homework_notice: ''
     })
+    const layout = {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
+    }
+    const rules = {
+      homework_name: [{trigger: 'blur', required: true, message: '请输入作业名称'}],
+      homework_notice: [{trigger: 'blur', required: true, message: '请输入作业须知'}]
+    }
     const className = ref('')
     const search = () => {
 
@@ -88,9 +97,12 @@ export default {
     const cancelModal = () => {
       visible.value = false
     }
+    const { validate } = useForm(work, rules)
     const handleOk = () => {
-      // TODO:创建作业后，跳转到对应的homeworkId
-      route.push({path: '/create_subject/1'})
+      validate().then(() => {
+        // TODO:创建作业后，跳转到对应的homeworkId
+        route.push({path: '/create_subject/1'})
+      }).catch((err) => console.log(err))
     }
     return {
       work,
@@ -101,7 +113,9 @@ export default {
       tableList,
       search,
       className,
-      handleOk
+      handleOk,
+      layout,
+      rules
     }
   }
 }

@@ -35,7 +35,7 @@ import {getSubject} from './handleSubject'
 export default {
   setup() {
     let subjectList = reactive([])
-    subjectList =getSubject()
+    subjectList =getSubject() || []
     watch(() => subjectList, val => {
       subjectList = val
     })

@@ -1,6 +1,6 @@
 import { user } from './modules/user'
-const module = {
+const store = {
   user: user
 }
 
-export { module }
+export { store }
