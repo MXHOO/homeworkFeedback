@@ -3,7 +3,6 @@ import axios from 'axios'
 import {useRouter} from 'vue-router'
 const router = useRouter()
 
-
 const service = axios.create({
   timeout: 20000,
   withCredentials: true,
@@ -14,10 +13,6 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(config => {
-  console.log('请求拦截', config)
-  // if(config.url !== '/user/login') {
-  //   config.headers.token =  sessionStorage.getItem('token')
-  // }
   return config
 })
 
@@ -41,6 +36,8 @@ service.interceptors.response.use(response => {
       })
       break
     default:
+      console.log(useRouter ,router)
+      // router.push({path: '/login'})
       console.log('其他')
   }
 }, error => {

@@ -7,3 +7,10 @@ import http from '@/util/axios.config.js'
 export function createWork(param = {}) {
   return http.post('/homework_library/create_homework', param)
 }
+
+/**
+ * 获取作业库
+ */
+export function getHomeWorList() {
+  return http.get('/homework_library/homework_list')
+}

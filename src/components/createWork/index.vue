@@ -40,12 +40,12 @@
   </div>
 </template>
 <script>
-import { createWork } from '@/services/createWork.js'
+import { createWork, getHomeWorList } from '@/services/createWork.js'
 import { useForm } from '@ant-design-vue/use'
 import { reactive, ref } from 'vue'
 import {useRouter} from 'vue-router'
 export default {
-  setup() {
+  async setup() {
     const router = useRouter() 
     const work = reactive({
       homework_name: '',
@@ -85,6 +85,8 @@ export default {
         slots: { customRender: 'operation' }
       }
     ]
+    const {data} = await getHomeWorList()
+    console.log('获取到的列表数据', data)
     const tableList =  [...Array(100)].map((_, i) => ({
       homework_id: i,
       homework_name: '测试数据',
