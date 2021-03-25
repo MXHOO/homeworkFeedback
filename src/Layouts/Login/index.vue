@@ -28,6 +28,7 @@
 <script>
 // import { mapMutations } from 'vuex'
 import { loginHandler } from '@/services/login.js'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Login',
@@ -61,27 +62,16 @@ export default {
     }
   },
   created () {
-    // window.addEventListener('storage', this.afterQRScan)
+    this.router = useRouter()
   },
-  // destroyed () {
-  //   // window.removeEventListener('storage', this.afterQRScan)
-  // },
   methods: {
     async handleLogin () {
       this.loading = true
-      const data = await loginHandler(this.loginForm)
-      console.log(data)
-      // let _this = this
-      // eslint-disable-next-line no-unused-vars
-      // this.$refs.loginForm.validate(async valid => {
-      //   if (valid) {
-          
-      //   } else {
-      //     return false
-      //   }
-      // })
-    },
-    // ...mapMutations('user', ['setUserName'])
+      const {data} = await loginHandler(this.loginForm)
+      sessionStorage.setItem('token', data.token)
+      this.loading = false
+      this.router.push({path: '/'})
+    }
   }
 }
 </script>

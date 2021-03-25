@@ -40,12 +40,13 @@
   </div>
 </template>
 <script>
+import { createWork } from '@/services/createWork.js'
 import { useForm } from '@ant-design-vue/use'
 import { reactive, ref } from 'vue'
 import {useRouter} from 'vue-router'
 export default {
   setup() {
-    const route = useRouter() 
+    const router = useRouter() 
     const work = reactive({
       homework_name: '',
       homework_notice: ''
@@ -99,9 +100,11 @@ export default {
     }
     const { validate } = useForm(work, rules)
     const handleOk = () => {
-      validate().then(() => {
+      validate().then(async () => {
+        const {data} = await createWork(work)
+        console.log(data)
         // TODO:创建作业后，跳转到对应的homeworkId
-        route.push({path: '/create_subject/1'})
+        router.push({path: '/create_subject/1'})
       }).catch((err) => console.log(err))
     }
     return {

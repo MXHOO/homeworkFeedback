@@ -8,7 +8,7 @@ const configureWebpack = {
     }
   }
 }
-const url = 'http://10.3.16.185:8080'
+const url = 'http://39.102.46.213'
 module.exports = {
   publicPath: './',
   devServer: {

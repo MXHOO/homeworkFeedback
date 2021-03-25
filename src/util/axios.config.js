@@ -8,9 +8,9 @@ const service = axios.create({
   timeout: 20000,
   withCredentials: true,
   baseURL: '/api',
-  // headers: {
-  //   'token': sessionStorage.getItem("token")
-  // }
+  headers: {
+    'token': sessionStorage.getItem("token")
+  }
 })
 
 service.interceptors.request.use(config => {
@@ -23,24 +23,22 @@ service.interceptors.request.use(config => {
 
 service.interceptors.response.use(response => {
   const { data } = response
-  console.log('response', data)
-  sessionStorage.setItem('token', response.data.data.token)
+  console.log('response', data, data.code === 1002)
   switch(data.code) {
     case 0: 
-      Promise.resolve(data.data)
-      break
+      return Promise.resolve(data)
     case 1001:
       console.log('状态码1001')
       setTimeout(() => {
-        router.push()
+        router.push({path: '/login'})
       }, 200)
-      // window.location.href = 'login.html'
       break
     case 1002:
       console.log('没有权限访问')
       setTimeout(() => {
-        router.push()
-      }, 200)
+        console.log('这里走没走')
+        router.push({path: '/login'})
+      })
       break
     default:
       console.log('其他')
