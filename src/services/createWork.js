@@ -1,4 +1,5 @@
 import http from '@/util/axios.config.js'
+import {get} from '@/util/http.js'
 /**
  * 创建作业
  * @param {string} homework_name [必填]  作业名称
@@ -12,5 +13,5 @@ export function createWork(param = {}) {
  * 获取作业库
  */
 export function getHomeWorList() {
-  return http.get('/homework_library/homework_list')
+  return get('/homework_library/homework_list')
 }
