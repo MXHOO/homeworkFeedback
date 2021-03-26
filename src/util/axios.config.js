@@ -25,7 +25,6 @@ service.interceptors.request.use(config => {
 })
 
 service.interceptors.response.use(response => {
-  console.log('走这里了吗')
   const { data } = response
   if(data.code === 0) {
     return Promise.resolve(data)
@@ -34,13 +33,14 @@ service.interceptors.response.use(response => {
       message: '错误',
       description: '发生了错误'
     })
-    sessionStorage.removeItem('token')
+    return Promise.reject(data)
+    // sessionStorage.removeItem('token')
     // router.push({path: '/login'})
     
   }
 }, error => {
   $notification.error({
-    message: '响应错误',
+    message: '获取数据错误',
     description: error
   })
 })

@@ -40,13 +40,12 @@
   </div>
 </template>
 <script>
-import { createWork, getHomeWorList } from '@/services/createWork.js'
+import { createWork } from '@/services/createWork.js'
 import { useForm } from '@ant-design-vue/use'
-import { reactive, ref } from 'vue'
-import {useRouter} from 'vue-router'
+import { getCurrentInstance, reactive, ref } from 'vue'
 export default {
   async setup() {
-    const router = useRouter() 
+    const {ctx} = getCurrentInstance()
     const work = reactive({
       homework_name: '',
       homework_notice: ''
@@ -85,7 +84,7 @@ export default {
         slots: { customRender: 'operation' }
       }
     ]
-    await getHomeWorList()
+    // await getHomeWorList()
     // console.log('获取到的列表数据', data)
     const tableList =  [...Array(100)].map((_, i) => ({
       homework_id: i,
@@ -106,8 +105,8 @@ export default {
         const {data} = await createWork(work)
         console.log(data)
         // TODO:创建作业后，跳转到对应的homeworkId
-        router.push({path: '/create_subject/1'})
-      }).catch((err) => console.log(err))
+        ctx.$router.push({path: '/create_subject/1'})
+      })
     }
     return {
       work,

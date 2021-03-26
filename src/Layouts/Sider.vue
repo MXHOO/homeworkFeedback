@@ -27,7 +27,7 @@ export default {
     let collapsed = ref(false)
     let click = (item) =>{
       selectedKeys.value = [item.key]
-      ctx.push({path: item.key })
+      ctx.$router.push({path: item.key })
     }
     return {
       menuContent,
