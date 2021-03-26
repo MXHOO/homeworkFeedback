@@ -85,8 +85,8 @@ export default {
         slots: { customRender: 'operation' }
       }
     ]
-    const {data} = await getHomeWorList()
-    console.log('获取到的列表数据', data)
+    await getHomeWorList()
+    // console.log('获取到的列表数据', data)
     const tableList =  [...Array(100)].map((_, i) => ({
       homework_id: i,
       homework_name: '测试数据',

@@ -1,7 +1,5 @@
 // 封装axios
 import axios from 'axios'
-import {useRouter} from 'vue-router'
-const router = useRouter()
 
 const service = axios.create({
   timeout: 20000,
@@ -13,32 +11,19 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(config => {
+  if(!config.headers.token) {
+    // setTimeout(() => {ctx.push({path: '/login'})})
+  }
   return config
 })
 
 service.interceptors.response.use(response => {
   const { data } = response
-  console.log('response', data, data.code === 1002)
-  switch(data.code) {
-    case 0: 
-      return Promise.resolve(data)
-    case 1001:
-      console.log('状态码1001')
-      setTimeout(() => {
-        router.push({path: '/login'})
-      }, 200)
-      break
-    case 1002:
-      console.log('没有权限访问')
-      setTimeout(() => {
-        console.log('这里走没走')
-        router.push({path: '/login'})
-      })
-      break
-    default:
-      console.log(useRouter ,router)
-      // router.push({path: '/login'})
-      console.log('其他')
+  if(data.code === 0) {
+    return Promise.resolve(data)
+  } else {
+    // console.log('router', ctx)
+    // router.push({path: '/login'})
   }
 }, error => {
   console.log(error)

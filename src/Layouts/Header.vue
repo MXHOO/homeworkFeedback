@@ -15,17 +15,17 @@
   </div>
 </template>
 <script>
-import {useRouter} from 'vue-router'
 import { UserOutlined } from '@ant-design/icons-vue';
+import { getCurrentInstance } from 'vue';
 export default {
   name: 'Header',
   components: {
     UserOutlined,
   },
   setup() {
-    const router = useRouter()
+    const {ctx} = getCurrentInstance()
     const logout = function() {
-      router.push({path: '/login'})
+      ctx.$router.push({path: '/login'})
     }
     return {
       logout

@@ -68,6 +68,7 @@ export default {
     async handleLogin () {
       this.loading = true
       const {data} = await loginHandler(this.loginForm)
+      this.$message.success('登录成功！')
       sessionStorage.setItem('token', data.token)
       this.loading = false
       this.router.push({path: '/'})

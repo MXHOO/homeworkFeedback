@@ -14,21 +14,20 @@ import menu from '../data/menu.json'
 import {
   UserOutlined,
 } from '@ant-design/icons-vue';
-import { ref } from 'vue';
-import {useRouter} from 'vue-router'
+import { getCurrentInstance, ref } from 'vue';
 export default {
   name: 'Sider',
   components: {
     UserOutlined,
   },
   setup () {
-    const router = useRouter()
+    const {ctx} = getCurrentInstance()
     const menuContent = ref(menu)
     let selectedKeys = ref(['work_lib'])
     let collapsed = ref(false)
     let click = (item) =>{
       selectedKeys.value = [item.key]
-      router.push({path: item.key })
+      ctx.push({path: item.key })
     }
     return {
       menuContent,
