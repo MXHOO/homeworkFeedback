@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import { createWork } from '@/services/createWork.js'
+import { createWork, getHomeWorList } from '@/services/createWork.js'
 import { useForm } from '@ant-design-vue/use'
 import { getCurrentInstance, reactive, ref } from 'vue'
 export default {
@@ -84,7 +84,7 @@ export default {
         slots: { customRender: 'operation' }
       }
     ]
-    // await getHomeWorList()
+    await getHomeWorList()
     // console.log('获取到的列表数据', data)
     const tableList =  [...Array(100)].map((_, i) => ({
       homework_id: i,
