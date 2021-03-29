@@ -20,7 +20,7 @@
       </a-form>
     </a-col>
     <a-col :span="6"><a-button type="primary" @click="showModal">创建作业</a-button></a-col>
-  </a-row>
+    </a-row>
     <a-table :columns="columns" :pagination="{ pageSize: 10 }" :data-source="tableList" rowKey="homework_id">
       <template>
         

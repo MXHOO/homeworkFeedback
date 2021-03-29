@@ -1,6 +1,5 @@
 // 封装axios
 import axios from 'axios'
-console.log(window.app)
 const router = window.app.config.globalProperties.$router
 const $notification = window.app.config.globalProperties.$notification
 const service = axios.create({
@@ -36,7 +35,6 @@ service.interceptors.response.use(response => {
     return Promise.reject(data)
     // sessionStorage.removeItem('token')
     // router.push({path: '/login'})
-    
   }
 }, error => {
   $notification.error({

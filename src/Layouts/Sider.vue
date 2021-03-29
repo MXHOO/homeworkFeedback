@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="logo"></div>
+    <div class="logo">作业反馈系统</div>
     <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
       <a-menu-item v-for="item in menuContent" :key="item.key" @click="click">
         <user-outlined />

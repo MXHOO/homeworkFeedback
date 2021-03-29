@@ -7,6 +7,5 @@ import 'ant-design-vue/dist/antd.css';
 import {Spin} from 'ant-design-vue'
 const app = createApp(App)
 app.config.globalProperties.$loading = Spin
-console.log(app.config)
 window.app = app
 app.use(Antd).use(store).use(router).mount('#app')
